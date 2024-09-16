@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <title>Portifolio - Bruno</title>
+</head>
+<style>
+     *{
+        margin: 0;
+        padding: 0;
+    }
+
+    body{
+        background-color: black;
+    }
+
+    header{
+        text-align: center;
+        text-decoration: none;
+    }
+
+    nav ul{
+        display: flex;
+        justify-content: space-around;
+        padding: 15px;
+    }
+
+    nav ul li a{
+        text-decoration: none;
+        color: antiquewhite;
+    }
+
+    section{
+        background-color: #1c1c1c;
+        padding: 25px;
+        border: rgb(33, 207, 71) solid 1px;
+        text-align: center;
+    }
+
+    figure{
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    img{
+        border:black solid 1px;
+        border-radius: 25px;
+        transition: 0.5s;
+    }
+
+    img:hover{
+        transform: scale(1.05);
+        box-shadow: rgb(33, 207, 71) 5px;
+    }
+
+    
+    h1, h3, p{
+        color: antiquewhite;
+    }
+
+    footer{
+        text-align: center;
+        color: antiquewhite;
+        margin: 15px;
+    }
+
+    footer section{
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-around;
+        background-color: #1b1b1b;
+    }
+</style>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Bruno</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">Nada</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <figure>
+                <img src="data:image/jpeg;base64,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" alt="Foto Bruno">
+            </figure>
+            <h1>Bruno Carletto Adamczyk</h1>
+        </section>
+        <section>
+            <h3>Bibliografia</h3>
+            <br>
+            <p>
+                Donald John Trump (Nova Iorque, 14 de junho de 1946) é um empresário, personalidade televisiva e político americano que serviu como o 45.º presidente dos Estados Unidos. Na eleição de 2016, Trump foi eleito pelo Partido Republicano ao derrotar a candidata democrata Hillary Clinton no número de delegados do colégio eleitoral; no entanto, perdeu no voto popular.[2] Ele foi empossado para o cargo em 20 de janeiro de 2017 e, aos 70 anos de idade, foi a pessoa mais velha a assumir a presidência até que seu sucessor, Joe Biden, assumiu o cargo aos 78 anos em 2021.[3] Em novembro de 2022, Trump anunciou sua pré-candidatura a eleição presidencial de 2024[4][5] e foi oficialmente nomeado como o candidato republicano em julho de 2024.
+                Trump nasceu e cresceu no Queens, um dos cinco distritos da cidade de Nova Iorque, e recebeu um diploma de bacharel em economia da Wharton School da Universidade da Pensilvânia em 1968. Em 1971, recebeu de seu pai, Fred Trump, o controle da empresa de imóveis e construção Elizabeth Trump & Son, renomeando-a para The Trump Organization. Durante sua carreira, construiu empreendimentos com sua marca em todo o mundo. Trump também foi dono do concurso de beleza Miss USA entre 1996 e 2015, fez breves aparições em filmes e séries de televisão e apresentou e coproduziu o reality show The Apprentice. Em 2016, a revista Forbes o listou como a 324.ª pessoa mais rica do mundo, com um patrimônio líquido de 4,5 bilhões de dólares. Em junho de 2015, anunciou sua candidatura para a presidência como um republicano e rapidamente emergiu como o favorito para a nomeação do seu partido. Em maio de 2016, todos os seus rivais republicanos haviam suspendido suas campanhas e, em julho, Trump foi formalmente nomeado candidato a presidente na Convenção Nacional Republicana. A campanha de Trump recebeu cobertura midiática e atenção internacional sem precedentes. Muitas de suas declarações em entrevistas e no Twitter durante a campanha foram controversas. Várias manifestações durante as primárias republicanas foram acompanhadas por protestos. Suas posições políticas foram descritas como populistas, protecionistas, isolacionistas e nacionalistas. O pleito também foi marcado por evidências de uma interferência russa a favor da campanha de Trump, mas a investigação subsequente do Departamento de Justiça, encabeçada por Robert Mueller, não provou relação direta com o então presidente eleito. 
+            </p>
+        </section>
+    </main>
+    <footer>
+        <h4>&copy; Todos os direitos reservados, Bruno Carletto Adamczyk</h4>
+        <section>
+            <a href="https://www.instagram.com/"><i class='fab fa-instagram' style='font-size:48px;color: black;'></i></a>
+            <a href="https://www.youtube.com/"><i class="fab fa-youtube" style='font-size:48px;color:red'></i></a>
+            <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook" style="font-size:48px;color:blue"></i></a>
+            <a href="https://github.com/BruDu1545"><i class="fa-brands fa-github" style="font-size:48px;color: black;"></i></a>
+            <a href="https://www.linkedin.com/in/bruno-adamczyk-493b31311/"><i class="fa-brands fa-linkedin" style="font-size:48px;color:#0e76a8"></i></a>
+        </section>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#barra_feras_volei {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+#barra_feras_volei .content-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    flex-direction: column; 
+}
+
+#barra_feras_volei img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#barra_feras_volei .text-content {
+    flex: 1;
+    text-align: center;
+    margin: 0 20px;
+}
+
+#barra_feras_volei h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+}
+
+#barra_feras_volei p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (min-width: 600px) {
+    #barra_feras_volei .content-wrapper {
+        flex-direction: row; 
+    }
+
+    #barra_feras_volei img {
+        margin-bottom: 0; 
+    }
+}
+
+    </style>
+<body>
+    <div id="barra_feras_volei">
+        <div class="content-wrapper">
+            <img src="municipio.png" alt="">
+            <div class="text-content">
+                <h4>PROJETO SOCIAL FERAS DO VÔLEI</h4>
+                <p>
+                    Parceria ASSEAMAL e Prefeitura Municipal de Marechal Cândido Rondon/PR <br>
+                    <strong>ASSEAMAL - CNPJ 77.603.041/0001-05</strong><br>
+                    Assinatura 28/02/2024 -- Data de início 01/03/2024 -- Execução até 31/12/2024 <br>
+                    Data fim de execução 01/02/2025 -- Data fim de vigência 01/03/2025 <br>
+                    Prestação de contas final 31/01/2025 -- Aprovação até 28/02/2025 <br>
+                    Termo de colaboração n⁰ 013/2024 -- Valor total R$ 276.000,00
+                </p>
+            </div>
+            <img src="martin.png" alt="">
+        </div>
+    </div>
+</body>
+</html>

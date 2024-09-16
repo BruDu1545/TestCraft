@@ -1,0 +1,60 @@
+import tkinter as tk
+
+def ListaDeTarefas():
+
+    def CadastroDeTarefas():
+        new_tarefa = input_box.get()
+        if new_tarefa:
+            display_list.insert(tk.END,new_tarefa)
+            input_box.delete(0, tk.END)
+
+    def DeleteTarefa():
+        tarefa_selecionada = display_list.curselection()
+        if tarefa_selecionada:
+            display_list.delete(tarefa_selecionada)
+
+    def EditarTarefa():
+        tarefa_edit_selecionada = display_list.curselection()
+        editar_tarefa = display_list.get(tarefa_edit_selecionada[0])
+        if editar_tarefa:
+            def ConfirmEdit():
+                tarefa_editada = input_new_tarefa.get()
+                if tarefa_editada != editar_tarefa:
+                    display_list.delete(tarefa_edit_selecionada[0])
+                    display_list.insert(tarefa_edit_selecionada[0], tarefa_editada)
+                    edit.destroy()
+                else:   
+                    menssage.config(text='Falha ao editar tarefa, tente novamente')
+            edit = tk.Tk()
+            title = tk.Label(edit, text='Modifique a tarefa e confirme para confirmar a edição')
+            title.pack()
+            input_new_tarefa = tk.Entry(edit)
+            input_new_tarefa.pack()
+            input_new_tarefa.insert(tk.END, editar_tarefa)
+            btn_confirm = tk.Button(edit, text='Confirm', command=ConfirmEdit)
+            btn_confirm.pack()
+            btn_exit = tk.Button(edit, text='Exit', command=edit.destroy)
+            btn_exit.pack()
+            edit.mainloop()
+        else:
+            menssage.config(text='Primeiro selecione alguma tarefa', fg='red')
+
+
+    root = tk.Tk()
+
+    input_box = tk.Entry(root)
+    input_box.pack()
+    menssage = tk.Label(root)
+    menssage.pack()
+    display_list = tk.Listbox(root, height=8)
+    display_list.pack()
+    btn_input = tk.Button(root, text='Cadastrar tarefas', command=CadastroDeTarefas)
+    btn_input.pack()
+    btn_delete = tk.Button(root, text='Deletar tarefa', command=DeleteTarefa)
+    btn_delete.pack()
+    btn_edit = tk.Button(root, text='Editar tarefa',command=EditarTarefa)
+    btn_edit.pack()
+
+    root.mainloop()
+
+ListaDeTarefas()

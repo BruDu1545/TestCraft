@@ -1,0 +1,115 @@
+import tkinter as tk
+from tkinter import ttk
+
+def RevendaCARROS():
+    global saldo
+    saldo = 20000
+
+    cars = {
+        'Belina': 15000,
+        'Uno': 12000,
+        'Gol': 20000,
+        'Celta': 18000,
+        'Fusca': 10000,
+        'Corsa': 16000,
+        'Palio': 17000,
+        'Siena': 19000
+    }
+
+    def AnuncioDeCarros():
+        def AddCar():
+            name_car = input_carro.get()
+            value_car = input_valor.get()
+            if name_car and value_car:
+                lista_de_carros.insert(tk.END, f'{name_car} - R${value_car}\n')
+                input_carro.delete(0, tk.END)
+                input_valor.delete(0, tk.END)
+                anuncio.destroy()
+                cars[name_car] = int(value_car)
+                
+        anuncio = tk.Tk()
+        text_anuncio = tk.Label(anuncio, text="Anuncie seus carros aqui.")
+        text_anuncio.pack()
+        input_carro = tk.Entry(anuncio)
+        input_carro.pack()
+        input_valor = tk.Entry(anuncio)
+        input_valor.pack()
+        btn_anuncio = tk.Button(anuncio, text="Confirmar", command=AddCar)
+        btn_anuncio.pack()
+        anuncio.mainloop()
+
+    def ComprarCarros():
+        global car_escolhido
+        car_escolhido = lista_de_carros.curselection()
+        global car_compra
+        car_compra = lista_de_carros.get(car_escolhido)
+        value = int(car_compra.split(" - R$")[1])
+        global opcao_pagamento
+        if car_escolhido:
+            def Parcelado():
+                if opcao_pagamento.get():
+                    title.config(text=f'Compra efetuada com sucesso, seu bem vai ficar\n alienado com o banco ate que as suas parcelas.\n {car_compra}', fg='Black', font=150)
+                    lista_de_carros.delete(car_escolhido)
+                    compra.destroy()    
+                else:
+                    title2.config(text='Selecione uma opção de pagamento')
+
+            def BuyCar():
+                global saldo
+                global car_escolhido
+                if saldo >= value:
+                    novo_saldo = saldo - value
+                    title.config(text='Compra efetuada com sucesso.', fg='Green', font=150)
+                    saldo_label.config(text=f'Saldo disponível: R${novo_saldo}')
+                    lista_de_carros.delete(car_escolhido)
+                    compra.destroy()
+                else:
+                    title.config(text='Saldo insuficiente.', fg='Red', font=150)
+                    saldo_label.config(text=f'Saldo disponível: R${saldo}')
+                    compra.destroy()
+
+            compra = tk.Tk()
+            compra.title("Comprar Carros")
+            title2 = tk.Label(compra, text='', fg='Red', font=150)
+            title2.pack()
+            sla_car = tk.Label(compra, text=f'Você deseja comprar o carro:\n {car_compra}\nPrefere pagar à vista ou parcelado?')
+            sla_car.pack()
+            options = ['3 vezes sem juros', '6 vezes sem juros', '9 vezes sem juros', '12 vezes sem juros']
+            selected_option = tk.StringVar()
+            opcao_pagamento = ttk.Combobox(compra, textvariable=selected_option, values=options)
+            opcao_pagamento.pack()
+            btn_compra = tk.Button(compra, text="À vista", command=BuyCar)
+            btn_compra.pack()
+            btn_compra_P = tk.Button(compra, text="Parcelado", command=Parcelado)
+            btn_compra_P.pack()
+
+            compra.mainloop()
+        else:
+            title.config(text='Nenhum carro selecionado.', fg='Red', font=150)
+
+
+    root = tk.Tk()
+
+    title = tk.Label(root, text='Garagem de carros.')
+    title.pack()
+    saldo_label = tk.Label(root, text=f'Saldo disponível: R${saldo}' )
+    saldo_label.pack()
+        
+    text_compra = tk.Label(root, text="Selecione o carro desejado e clique em comprar")
+    text_compra.pack()
+
+    global lista_de_carros
+    lista_de_carros = tk.Listbox(root)
+    lista_de_carros.pack()
+
+    for car, value in cars.items():
+        lista_de_carros.insert(tk.END, f'{car} - R${value}\n')
+
+    btn_anuncio = tk.Button(root, text='Anunciar carros', command=AnuncioDeCarros)
+    btn_anuncio.pack()
+    btn_comprar = tk.Button(root, text='Comprar carros', command=ComprarCarros)
+    btn_comprar.pack()
+
+    root.mainloop()
+    
+RevendaCARROS()

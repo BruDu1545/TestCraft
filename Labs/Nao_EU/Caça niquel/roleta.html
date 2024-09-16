@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador Martin Luther</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, rgb(36, 33, 26) 0%, rgb(43, 1, 1) 100%);
+            /* Adicionando a imagem de fundo */
+            background-image: url('Background.jpg');
+            /* Posição e tamanho da imagem */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /*box principal */
+        .slots {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            height: 600px;
+            display: flex;
+            justify-content:space-around;
+            padding: 20px;
+            box-shadow: inset -1px 11px 7px -2px #fdad36;
+            background: linear-gradient(to bottom, #ffa200 5%, #ff6600 100%);
+            background-color: #ff6600;
+            border-radius: 16px;
+            border: 2px solid #de5900ee;
+            border-top: 1px solid rgba(209, 207, 207, 0.6);
+            border-right: 1px solid rgba(209, 207, 207, 0.6);
+            border-left: 1px solid rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+        }
+
+        /* slots das imagens*/
+        .slots .reel {
+            position: relative;
+            width: 300px;
+            height: 590px;
+            border: 1px solid rgba(0, 0, 0, 0.486);
+            border-radius: 2px;
+            overflow: hidden;
+            background-image: url(Imagem.jpg);
+            background-position: 0 0;
+            background-repeat: repeat-y;
+        }
+
+        /*sombras da BOX*/
+        .slots .reel::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(0, 0, 0, 0.575);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4) 10%, transparent 25%, transparent 70%, rgba(0, 0, 0, 0.486) 100%);
+            box-shadow: inset 0 0 6px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /*resultado do sorteio*/
+        .resultado {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            padding: 20px;
+            box-shadow: inset -1px 11px 7px -2px #f59211;
+            background: linear-gradient(to bottom, #ffa200 5%, #ff6600 100%);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            color: #ffffff;
+            font-family: Trebuchet MS;
+            font-size: 48px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 1px 2px 4px #000000;
+            display: none;
+
+        }
+
+        .resultado.show {
+            display: block;
+        }
+
+        /*botão*/
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        button {
+            position: absolute;
+            top: 45%;
+            left: center;
+            box-shadow: inset -1px 11px 7px -2px #f59211;
+            background: linear-gradient(to bottom, #ff6600 5%, #ffa200 100%);
+            background-color: #ff6600;
+            border-radius: 16px;
+            border: 1px solid #de5100ee;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Trebuchet MS;
+            font-size: 48px;
+            font-weight: bold;
+            padding: 6px 74px;
+            text-decoration: none;
+            text-shadow: 1px 2px 7px #000000;
+            animation: pulse 1.5s infinite;
+            pointer-events: auto;
+        }
+
+        /* Indicador */
+        .indicator {
+            position: absolute;
+            top: 50%;
+            left: -11px;
+            transform: translateY(-50%) rotate(180deg);
+            width: 0;
+            height: 0;
+            border-top: 40px solid transparent;
+            border-bottom: 40px solid transparent;
+            border-right: 50px solid #ffffff;
+            z-index: 1;
+
+        }
+
+        .shadowindicator {
+            position: absolute;
+            top: 50%;
+            left: -11px;
+            transform: translateY(-50%) rotate(180deg);
+            width: 0;
+            height: 0;
+            border-top: 42px solid transparent;
+            border-bottom: 42px solid transparent;
+            border-right: 52px solid #00000070;
+            z-index: 0;
+
+        }
+
+        /*-->.video {
+            position: absolute;
+            top: 76.5%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            border-radius: 20px;
+        }*/
+    </style>
+
+<body>
+    <div class="slots">
+        <div class="reel"></div>
+        <div class="reel"></div>
+        <div class="reel"></div>
+        <div class="indicator"></div>
+        <div class="shadowindicator"></div>
+    </div>
+
+    <button id="btnGirar">Girar</button>
+
+    <div id="resultado" class="resultado"></div>
+    <!--<iframe class="video" width="480" height="840" src="https://www.youtube.com/embed/yCU6f__hUwM" title="Como NAVIOS são LANÇADOS ao mar?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+    <script>
+        let index = 0
+        let times = 0
+
+        /* Configuração */
+        const resultEl = document.getElementById('resultado'),
+            btnGirar = document.getElementById('btnGirar'),
+            iconMap = ["Voar+Alto", "Martin", "Bilingue", "Infantil", "Avião"],
+            icon_width = 300,
+            icon_height = 187,
+            num_icons = 5,
+            time_per_icon = 200,
+            indexes = [3, 3, 3];
+
+        /* Função para girar uma bobina */
+        const roll = (reel, offset = 0) => {
+            const delta = (offset + 2) * /*num_icons*/ 15 + Math.round(Math.random() * num_icons);
+
+            return new Promise((resolve, reject) => {
+
+                const style = getComputedStyle(reel),
+                    backgroundPositionY = parseFloat(style["background-position-y"]),
+                    targetBackgroundPositionY = backgroundPositionY + delta * icon_height,
+                    normTargetBackgroundPositionY = targetBackgroundPositionY % (num_icons * icon_height);
+
+                setTimeout(() => {
+                    reel.style.transition = `background-position-y ${(8 + 1 * delta) * time_per_icon}ms cubic-bezier(.15,.10,.22,0)`;
+                    reel.style.backgroundPositionY = `${backgroundPositionY + delta * icon_height}px`;
+                }, offset * 140);
+
+                setTimeout(() => {
+                    reel.style.transition = `none`;
+                    reel.style.backgroundPositionY = `${normTargetBackgroundPositionY}px`;
+                    resolve(delta % num_icons);
+                }, (8 + 1 * delta) * time_per_icon + offset * 140);
+            });
+        };
+
+
+
+
+        /* Função para girar todas as bobinas */
+        function rollAll() {
+            const reelsList = document.querySelectorAll('.slots > .reel');
+
+            btnGirar.disabled = true;
+
+            Promise.all([...reelsList].map((reel, i) => roll(reel, i)))
+                .then((deltas) => {
+                    deltas.forEach((delta, i) => indexes[i] = (indexes[i] + delta) % num_icons);
+
+                    if (indexes[0] === indexes[1] && indexes[1] === indexes[2]) {
+                        setTimeout(() => {
+                            showResult("Ganhou!");
+                            index ++
+                        }, 500);
+                    }
+                    else {
+                        setTimeout(() => {
+                            showResult("Não foi dessa vez!");
+                        }, 500);
+                    }
+
+                    setTimeout(() => {
+                        btnGirar.disabled = false;
+                    }, 1500);
+                });
+        }
+
+        /* Função para iniciar o jogo quando o botão é clicado */
+        function startGame() {
+            rollAll();
+            times ++
+            console.log("Vezes: "+ times);
+            console.log("Vitorias: " + index);
+        }
+
+        /* Função para exibir o resultado na tela */
+        function showResult(message) {
+            resultEl.textContent = message;
+            resultEl.classList.add("show");
+
+            setTimeout(() => {
+                resultEl.classList.remove("show");
+            }, 1800);
+        }
+        document.getElementById('btnGirar').addEventListener('click', startGame);
+
+
+        //pra que serve
+        //tantos codigos??
+        //se a vida
+        //não e programada
+        // e as melores coisas
+        //não tem logica?
+    </script>
+</body>
+
+</html>

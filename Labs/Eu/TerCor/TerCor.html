@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .config-colors {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dispay-input-color {
+            margin-bottom: 20px;
+        }
+
+        .correct-combination {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .correct-combination div {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+        }
+
+        select {
+            margin-bottom: 10px;
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .confirm-color,
+        .start-the-game {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-color:hover,
+        .start-the-game:hover {
+            background-color: #45a049;
+        }
+
+        .display-game {
+            width: 400px;
+        }
+
+        .answer-client {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .answer-client div {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        button {
+            background-color: #008cba;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005f6b;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+            position: fixed;
+        }
+
+        /* Estilos existentes */
+
+/* Adiciona um display de 5x5 no response-computer */
+.response-computer {
+    display: grid;
+    grid-template-columns: repeat(5, 40px); /* 5 colunas de 40px cada */
+    grid-template-rows: auto; /* Altura automática, ajustável conforme o conteúdo */
+    gap: 5px; /* Espaçamento entre os elementos */
+    justify-content: center; /* Centraliza os elementos horizontalmente */
+    margin-top: 10px; /* Espaçamento superior para separar dos inputs */
+}
+
+/* Estilo para as divs que representam as cores no response-computer */
+.response-computer div {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    display: inline-block; /* Para manter os elementos em linha */
+}
+
+        .color1,
+        .color2,
+        .color3,
+        .color4,
+        .color5,
+        #ball-user,
+        #color10,
+        #color20,
+        #color30,
+        #color40,
+        #color50,
+        #color11,
+        #color21,
+        #color31,
+        #color41,
+        #color51,
+        #color12,
+        #color22,
+        #color32,
+        #color42,
+        #color52,
+        #color13,
+        #color23,
+        #color33,
+        #color43,
+        #color53,
+        #color14,
+        #color24,
+        #color34,
+        #color44,
+        #color55 {
+            padding: 10px;
+            border-radius: 99px;
+            width: 0;
+            border: solid black 2px;
+            background-color: white;
+        }
+    </style>
+    <title>TerCor</title>
+</head>
+
+<body>
+    <header>
+        <h1>Bem vindo(a), ao Tercor</h1>
+    </header>
+    <main>
+        <div class="config-colors">
+            <div class="dispay-input-color">
+                <h3 id="textInitial">
+                    Selecione cinco(5) cores para o jogador 2 acertar
+                </h3>
+                <div class="correct-combination">
+                    <div class="color1"></div>
+                    <div class="color2"></div>
+                    <div class="color3"></div>
+                    <div class="color4"></div>
+                    <div class="color5"></div>
+                </div>
+                <!--correct-combination-->
+                <select id="select-color1">
+                    <option value="red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Cyan">Cyan</option>
+                </select><!--select-color1-->
+                <select id="select-color2">
+                    <option value="red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Cyan">Cyan</option>
+                </select><!--select-color2-->
+                <select id="select-color3">
+                    <option value="red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Cyan">Cyan</option>
+                </select><!--select-color3-->
+                <select id="select-color4">
+                    <option value="red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Cyan">Cyan</option>
+                </select><!--select-color4-->
+                <select id="select-color5">
+                    <option value="red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Cyan">Cyan</option>
+                </select><!--select-color5-->
+                <button class="confirm-color" onclick="confirmColorON()">
+                    GO!
+                </button>
+                <button class="start-the-game" onclick="chanceColorsAndCreateGame()">
+                    Iniciar jogo
+                </button>
+            </div>
+            <!--dispay-input-color-->
+        </div>
+        <!--config-colors-->
+        <div class="display-game">
+            <div class="answer-client"></div>
+            <!--answer-client-->
+            <div class="response-computer"></div>
+            <!--response-computer-->
+        </div>
+        <!--display-game-->
+        <div class="restult"></div>
+        <!--result-->
+    </main>
+    <footer>
+        <p>Bruno Carletto Adamczyk</p>
+        <button id="easter-egg" onclick="testes()">TESTE-ME</button>
+    </footer>
+    <script src="TerCor.js"></script>
+</body>
+
+</html>

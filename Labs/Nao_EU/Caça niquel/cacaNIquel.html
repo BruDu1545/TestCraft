@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquina de Caça-níqueis</title>
+    <style>
+.slot-machine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.slot {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    margin: 10px;
+    background-size: cover;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="slot-machine">
+        <div class="slot" id="slot1"></div>
+        <div class="slot" id="slot2"></div>
+        <div class="slot" id="slot3"></div>
+        <button onclick="spin()">Girar</button>
+    </div>
+    <script>
+const images = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
+const slot1 = document.getElementById('slot1');
+const slot2 = document.getElementById('slot2');
+const slot3 = document.getElementById('slot3');
+
+function getRandomImage() {
+    return images[Math.floor(Math.random() * images.length)];
+}
+
+function spin() {
+    const result1 = getRandomImage();
+    const result2 = getRandomImage();
+    const result3 = getRandomImage();
+
+    slot1.style.backgroundImage = `url(${result1})`;
+    slot2.style.backgroundImage = `url(${result2})`;
+    slot3.style.backgroundImage = `url(${result3})`;
+
+    setTimeout(() => {
+        if (result1 === result2 && result2 === result3) {
+            alert('Você ganhou!');
+        } else {
+            alert('Você perdeu. Tente novamente!');
+        }
+    }, 2000); // Tempo da animação em milissegundos
+}
+
+    </script>
+</body>
+</html>

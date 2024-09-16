@@ -1,0 +1,94 @@
+import pygame
+import random
+
+pygame.init()
+
+x_screen = 800
+y_screen = 500
+
+screen = pygame.display.set_mode((x_screen, y_screen))
+
+pygame.display.set_caption("Jogo Python")
+
+red = (255,0,0)
+green = (0,255,0)
+
+font = pygame.font.SysFont(None, 28)
+
+snake_pos_x = x_screen // 2
+snake_pos_y = y_screen // 2
+snake_radius = 15
+snake_vel = 20
+snake_segments = [(snake_pos_x, snake_pos_y)]
+
+fruit_pos_x = x_screen // 2
+fruit_pos_y = y_screen // 2
+fruit_radius = 5
+
+clock = pygame.time.Clock()
+fps = 10
+
+index = -1
+direction = None
+grow = False
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    key_pressed = pygame.key.get_pressed()
+
+    # Movimentos
+    if key_pressed[pygame.K_DOWN] and direction != "UP":
+        direction = "DOWN"
+    if key_pressed[pygame.K_UP] and direction != "DOWN":
+        direction = "UP"
+    if key_pressed[pygame.K_LEFT] and direction != "RIGTH":
+        direction = "LEFT"
+    if key_pressed[pygame.K_RIGHT] and direction != "LEFT":
+        direction = "RIGTH"
+
+    if direction == "DOWN":
+        snake_pos_y += snake_vel
+    if direction == "UP":
+        snake_pos_y -= snake_vel
+    if direction == "LEFT":
+        snake_pos_x -= snake_vel
+    if direction == "RIGTH":
+        snake_pos_x += snake_vel
+
+    # respawn snake
+    if snake_pos_x < 0:
+        snake_pos_x = 800
+    if snake_pos_x > 800:
+        snake_pos_x = 0
+    if snake_pos_y < 0:
+        snake_pos_y = 500
+    if snake_pos_y > 500:
+        snake_pos_y = 0
+
+    snake_rect = pygame.Rect(snake_pos_x - snake_radius, snake_pos_y - snake_radius, snake_radius * 2, snake_radius * 2)
+    fruit_rect = pygame.Rect((fruit_pos_x - fruit_radius), (fruit_pos_y - fruit_radius), fruit_radius * 2, fruit_radius * 2)
+
+    for segment in snake_segments:
+        segment_rect = pygame.Rect(segment[0] - snake_radius, segment[1] - snake_radius, snake_radius * 2, snake_radius * 2)
+        pygame.draw.circle(screen, green, segment, snake_radius)
+
+    if snake_rect.colliderect(fruit_rect):
+        fruit_pos_x = random.randint(0, 799)
+        fruit_pos_y = random.randint(0, 499)
+        index += 1
+        snake_segments.append((snake_pos_x, snake_pos_y))
+
+    screen.fill((255,255,255))
+    score = font.render(f'Tamanho: {int(index)}', True, (0,0,0))
+    screen.blit(score,(15, 15))
+    pygame.draw.circle(screen, red, (fruit_pos_x, fruit_pos_y), fruit_radius)
+    pygame.draw.circle(screen, green, (snake_pos_x, snake_pos_y), snake_radius)
+
+    pygame.display.flip()
+    clock.tick(fps)
+
+pygame.quit()

@@ -1,0 +1,196 @@
+import random as random
+
+
+numTotalStudents = 282
+
+''' Implementar a captação automatica dos alunos '''
+
+
+def defineStudentsAllClasses():
+    students8 = 62
+    students9 = 60
+    students1 = 63
+    students2 = 51
+    students3 = 46
+    numStudents8nd = []
+    numStudents9nd = []
+    numStudents1nd = []
+    numStudents2nd = []
+    numStudents3ndA = []
+
+    for i in range(1, students8 + 1):
+        if i <= 29:
+            numStudents8nd.append(f'8°A-N°{i}')
+        else:
+            j = i - 29
+            numStudents8nd.append(f'8°B-N°{j}')
+
+    for i in range(1, students9 + 1):
+        if i <= 29:
+            numStudents9nd.append(f'9°A-N°{i}')
+        else:
+            j = i - 29
+            numStudents9nd.append(f'9°B-N°{j}')
+
+    for i in range(1, students1 + 1):
+        if i <= 38:
+            numStudents1nd.append(f'1°A-N°{i}')
+        else:
+            j = i - 38
+            numStudents1nd.append(f'1°B-N°{j}')
+
+    for i in range(1, students2 + 1):
+        if i <= 24:
+            numStudents2nd.append(f'2°A-N°{i}')
+        else:
+            j = i - 24
+            numStudents2nd.append(f'2°B-N°{j}')
+    for i in range(1, students3 + 1):
+        numStudents3ndA.append(f'3°A-N°{i}')
+
+    return numStudents8nd, numStudents9nd, numStudents1nd, numStudents2nd, numStudents3ndA
+
+numStudents1nd, numStudents2nd, numStudents3ndA, numStudents8nd, numStudents9nd = defineStudentsAllClasses()
+
+''' Implementar uma parte grafica para o usuario inserir e modificar as salas'''
+sala10 = [
+    ['', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', '', ''],
+]
+sala25 = [
+    ['', '', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+]
+sala26 = [
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+]
+sala31 = [
+    ['', '', '', '', ''],
+    ['', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', ''],
+]
+sala36 = [
+    ['', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+]
+sala103 = [
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', '', ''],
+]
+sala104 = [
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+]
+OASE = [
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+]
+
+''' Criar os mapas de sala ja no Objeto '''
+
+AllRooms = {
+    "OASE":  OASE,
+    "sala10": sala10,
+    "sala104": sala104,
+    "sala25": sala25,
+    "sala103": sala103,
+    "sala36": sala36,
+    "sala26": sala26,
+}
+
+
+''' Implementar a interação com os alunos personalizados '''
+Students = [numStudents8nd+numStudents9nd +
+            numStudents1nd+numStudents2nd+numStudents3ndA]
+random.shuffle(Students)
+
+
+def defined_student(room):
+    for line in range(len(room)):
+        for i in range(len(room[line])):
+            while True:
+                class_not_empty = [cls for cls in Students if cls]
+                if not class_not_empty:
+                    raise ValueError(
+                        "Não há alunos suficientes para preencher a sala.")
+                new_class = random.choice(class_not_empty)
+                new_student = random.choice(new_class)
+                new_student_ = new_student.split('°')[0]
+                can_place = True
+                if i != 0:
+                    if new_student_ == room[line][i-1].split('°')[0]:
+                        can_place = False
+                if line != 0:
+                    if len(room[line]) > len(room[line-1]):
+                        if i == 0:
+                            if new_student_ == room[line-1][i].split('°')[0] or new_student_ == room[line-1][i+1].split('°')[0]:
+                                can_place = False
+                        elif (i > 0 and i < (len(room[line-1]) - 1)):
+                            if new_student_ == room[line-1][i-1].split('°')[0] or new_student_ == room[line-1][i].split('°')[0] or new_student_ == room[line-1][i+1].split('°')[0]:
+                                can_place = False
+                        elif i == len(room[line-1]) - 1:
+                            if new_student_ == room[line-1][i-1].split('°')[0] or new_student_ == room[line-1][i].split('°')[0]:
+                                can_place = False
+                        elif i > (len(room[line-1]) - 1):
+                            if new_student_ == room[line-1][i-1].split('°')[0]:
+                                can_place = False
+                    elif len(room[line]) < len(room[line-1]):
+                        if i == 0:
+                            if new_student_ == room[line-1][i].split('°')[0] or new_student_ == room[line-1][i+1].split('°')[0]:
+                                can_place = False
+                        elif (i > 0 and i <= (len(room[line-1]) - 1)):
+                            if new_student_ == room[line-1][i-1].split('°')[0] or new_student_ == room[line-1][i].split('°')[0] or new_student_ == room[line-1][i+1].split('°')[0]:
+                                can_place = False
+                    elif len(room[line]) == len(room[line-1]):
+                        if i == 0:
+                            if new_student_ == room[line-1][i].split('°')[0] or new_student_ == room[line-1][i+1].split('°')[0]:
+                                can_place = False
+                        elif (i > 0 and i < (len(room[line-1]) - 1)):
+                            if new_student_ == room[line-1][i-1].split('°')[0] or new_student_ == room[line-1][i].split('°')[0] or new_student_ == room[line-1][i+1].split('°')[0]:
+                                can_place = False
+                        elif i == len(room[line-1]) - 1:
+                            if new_student_ == room[line-1][i-1].split('°')[0] or new_student_ == room[line-1][i].split('°')[0]:
+                                can_place = False
+                if can_place:
+                    room[line][i] = new_student
+                    new_class.remove(new_student)
+                    break
+
+
+''' Implementar para a saida da função ser pdf pronto (FPDF) '''
+for name, room in AllRooms.items():
+    print(name)
+    defined_student(room)
+    for line in room:
+        print(line)
+    print('------------------------------------------')
+print(Students)

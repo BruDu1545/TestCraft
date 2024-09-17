@@ -1,171 +1,51 @@
-import random
+def extract_class(student):
+    # Extrai a turma do aluno, por exemplo, '8°A' de '8°A-N°17'
+    return student.split('-')[0]
 
-def defineStudentsAllClasses():
-    students8 = 63
-    students9 = 59
-    students1 = 64
-    students2 = 47
-    students3 = 44
-
-    numStudents8nd = [f'8°{"A" if i <= 32 else "B"}-N°{i if i <= 32 else i-32}' for i in range(1, students8 + 1)]
-    numStudents9nd = [f'9°{"A" if i <= 28 else "B"}-N°{i if i <= 28 else i-28}' for i in range(1, students9 + 1)]
-    numStudents1nd = [f'1°{"A" if i <= 34 else "B"}-N°{i if i <= 34 else i-34}' for i in range(1, students1 + 1)]
-    numStudents2nd = [f'2°{"A" if i <= 20 else "B"}-N°{i if i <= 20 else i-20}' for i in range(1, students2 + 1)]
-    numStudents3ndA = [f'3°A-N°{i}' for i in range(1, students3 + 1)]
-
-    return numStudents8nd, numStudents9nd, numStudents1nd, numStudents2nd, numStudents3ndA
-
-def can_place_student(room, line, i, new_student_):
-    if i != 0:
-        if new_student_ == room[line][i-1].split('°')[0]:
-            return False
-    if line != 0:
-        if i < len(room[line-1]):
-            if new_student_ == room[line-1][i].split('°')[0]:
-                return False
-            if i > 0 and new_student_ == room[line-1][i-1].split('°')[0]:
-                return False
-            if i < len(room[line-1]) - 1 and new_student_ == room[line-1][i+1].split('°')[0]:
-                return False
-    return True
-
-def defined_student(room, students):
-    for line in range(len(room)):
-        for i in range(len(room[line])):
-            attempts = 0
-            while attempts < 500:  # Aumentando o número de tentativas
-                class_not_empty = [cls for cls in students if cls]
-                if not class_not_empty:
-                    return True  # Todos os alunos foram colocados
-                new_class = random.choice(class_not_empty)
-                new_student = random.choice(new_class)
-                new_student_ = new_student.split('°')[0]
-                if can_place_student(room, line, i, new_student_):
-                    room[line][i] = new_student
-                    new_class.remove(new_student)
-                    break
-                attempts += 1
-            else:
-                return False  # Não foi possível alocar o aluno, retorna False para backtracking
-    return True
-
-def attempt_allocation(AllRooms, students, max_attempts=10):
-    for attempt in range(max_attempts):
-        # Faz uma cópia das salas e dos alunos para tentar novamente
-        temp_students = [lst.copy() for lst in students]
-        temp_rooms = {name: [line.copy() for line in room] for name, room in AllRooms.items()}
-        
-        success = True
-        for name, room in temp_rooms.items():
-            if not defined_student(room, temp_students):
-                success = False
-                break
-
-        if success:
-            print(f"Alocação bem-sucedida na tentativa {attempt + 1}!")
-            return temp_rooms, temp_students  # Retorna a alocação final e os alunos restantes
+def check_adjacent_same_class(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0]) if rows > 0 else 0
     
-    print("Não foi possível alocar todos os alunos após várias tentativas.")
-    return temp_rooms, temp_students  # Retorna a última tentativa de alocação
+    def is_within_bounds(r, c):
+        return 0 <= r < rows and 0 <= c < cols
 
-# Definindo os alunos e as salas
-numStudents8nd, numStudents9nd, numStudents1nd, numStudents2nd, numStudents3ndA = defineStudentsAllClasses()
-students = [numStudents8nd, numStudents9nd, numStudents1nd, numStudents2nd, numStudents3ndA]
+    # Define as direções: horizontal, vertical e diagonal
+    directions = [
+        (-1, 0),  # Cima
+        (1, 0),   # Baixo
+        (0, -1),  # Esquerda
+        (0, 1),   # Direita
+        (-1, -1), # Diagonal superior esquerda
+        (-1, 1),  # Diagonal superior direita
+        (1, -1),  # Diagonal inferior esquerda
+        (1, 1)    # Diagonal inferior direita
+    ]
+    
+    # Percorre cada posição na matriz
+    for row in range(rows):
+        for col in range(cols):
+            current_class = extract_class(matrix[row][col])
+            for dr, dc in directions:
+                new_row, new_col = row + dr, col + dc
+                if is_within_bounds(new_row, new_col):
+                    adjacent_class = extract_class(matrix[new_row][new_col])
+                    if current_class == adjacent_class:
+                        print(f"Alunos da mesma turma encontrados nas posições ({row}, {col}) e ({new_row}, {new_col})")
+                        return True  # Encontrou dois alunos da mesma turma adjacentes
 
-# Definindo as salas
-sala10 = [
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-]
-sala25 = [
-    ['', '', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-]
-sala26 = [
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-]
-sala31 = [
-    ['', '', '', '', ''],
-    ['', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', ''],
-]
-sala36 = [
-    ['', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-]
-sala103 = [
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', ''],
-    ['', '', '', '', '', ''],
-]
-sala104 = [
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-]
-OASE = [
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', '', ''],
-    ['', '', '', '', '', ''],
-    ['', '', '', '', '', '', ''],
+    return False  # Nenhum aluno da mesma turma foi encontrado ao lado
+
+# Exemplo de uso
+sala = [
+    ['2°B-N°24', '3°A-N°38', '1°B-N°12', '8°A-N°17', '3°A-N°27', '8°B-N°9', '3°A-N°33'],
+    ['9°A-N°28', '8°A-N°3', '2°B-N°21', '9°B-N°5', '1°A-N°27', '2°B-N°9', '1°A-N°25'],
+    ['1°A-N°21', '9°A-N°10', '1°A-N°33', '8°B-N°10', '9°B-N°10', '3°A-N°5'],
+    ['8°A-N°15', '1°A-N°6', '8°A-N°14', '2°B-N°17', '8°B-N°19', '1°A-N°2', '8°B-N°28'],
+    ['1°A-N°17', '2°B-N°8', '1°B-N°20', '8°B-N°29', '3°A-N°25', '2°A-N°19'],
+    ['9°A-N°11', '1°A-N°31', '9°B-N°1', '3°A-N°12', '1°A-N°38', '9°A-N°15', '8°B-N°16'],
+    ['8°A-N°21', '9°A-N°5', '8°B-N°23', '2°A-N°23', '8°A-N°18', '1°B-N°2'],
+    ['9°A-N°1', '1°B-N°19', '9°B-N°23', '1°A-N°29', '3°A-N°41', '9°A-N°26', '2°A-N°10']
 ]
 
-# Mapeamento das salas
-AllRooms = {
-    "OASE": OASE,
-    "sala10": sala10,
-    "sala104": sala104,
-    "sala25": sala25,
-    "sala31": sala31,
-    "sala103": sala103,
-    "sala36": sala36,
-    "sala26": sala26,
-}
-
-# Tentativa de alocação com backtracking
-final_rooms, remaining_students = attempt_allocation(AllRooms, students, max_attempts=10)
-
-# Exibe o resultado final
-print("Distribuição final:")
-for name, room in final_rooms.items():
-    print(f"Distribuição final na {name}:")
-    for line in room:
-        print(line)
-    print('------------------------------------------')
-
-# Verifica e exibe os alunos restantes
-alunos_nao_alocados = sum(len(lst) for lst in remaining_students)
-if alunos_nao_alocados == 0:
-    print("Todos os alunos foram alocados com sucesso!")
-else:
-    print(f"Atenção: {alunos_nao_alocados} alunos não foram alocados.")
-    for i, turma in enumerate(remaining_students):
-        if len(turma) > 0:
-            print(f"Turma {i + 1}: {len(turma)} alunos não alocados:")
-            for aluno in turma:
-                print(aluno)
+result = check_adjacent_same_class(sala)
+print(f"Há alunos da mesma turma adjacentes? {result}")

@@ -2,8 +2,6 @@ import random as rdm
 
 numTotalStudents = 282
 
-# Implementar a captação automática dos alunos
-
 
 def defineStudentsAllClasses():
     students8 = 62
@@ -54,7 +52,7 @@ def defineStudentsAllClasses():
 
 numStudents1nd, numStudents2nd, numStudents3ndA, numStudents8nd, numStudents9nd = defineStudentsAllClasses()
 
-# Implementar uma parte gráfica para o usuário inserir e modificar as salas
+
 sala10 = [
     ['', '', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '', '', ''],
@@ -117,7 +115,7 @@ OASE = [
     ['', '', '', '', '', '', ''],
 ]
 
-# Criar os mapas de sala já no Objeto
+
 AllRooms = {
     "sala10": sala10,
     "sala103": sala103,
@@ -129,35 +127,58 @@ AllRooms = {
     "OASE": OASE
 }
 
-# Implementar a interação com os alunos personalizados
+
 Students = [numStudents8nd + numStudents9nd +
             numStudents1nd + numStudents2nd + numStudents3ndA]
-
 rdm.shuffle(Students)
 
-def setStudentRoom():
-    i = 0
-    for name, room in AllRooms.items():
-        room[i]
-        pass
-    pass
 
-def defined_student(room):
-    
-    pass
+def check_any_adjacent_equal(matrix, row, col):
+    rows = len(matrix)
+    cols = len(matrix[0]) if rows > 0 else 0
+    element = matrix[row][col]
+
+    def is_within_bounds(r, c):
+        return 0 <= r < rows and 0 <= c < cols
+
+    directions = [
+        (-1, 0),  # Up
+        (1, 0),   # Down
+        (0, -1),  # Left
+        (0, 1),   # Right
+        (-1, -1),  # Upper-left diagonal
+        (-1, 1),  # Upper-right diagonal
+        (1, -1),  # Lower-left diagonal
+        (1, 1)    # Lower-right diagonal
+    ]
+
+    for dr, dc in directions:
+        new_row, new_col = row + dr, col + dc
+        if is_within_bounds(new_row, new_col):
+            if matrix[new_row][new_col] == element:
+                return True  # Found at least one equal element
+
+    return False  # No adjacent elements are equal
 
 
-setStudentRoom()
-# Implementar para a saída da função ser PDF pronto (FPDF)
+def setStudentRoom(room):
+    global Students
+    for line in range(len(room)):
+        for i in range(len(room[line])):
+            can_place = True
+            new_student = rdm.choice(Students)
+            check_any_adjacent_equal()
+            if can_place:
+                new_student_ = new_student.pop()
+                room[line][i] = new_student_
+
+
 for name, room in AllRooms.items():
     print(name)
-    defined_student(room)
+    setStudentRoom(room)
     for line in room:
         print(line)
     print('------------------------------------------')
-
-
-
 
 
 """def defined_student(room):

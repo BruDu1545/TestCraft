@@ -1,0 +1,121 @@
+/* Reset e estilo base */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1c1c1c;
+    margin: 0;
+    padding: 0;
+    color: aliceblue;
+}
+
+/* Header com estilo limpo */
+header {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    background-color: #000;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    margin: 10px 0;
+}
+
+#rgbinicial {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    color: yellowgreen;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+/* Navegação */
+nav {
+    background-color: #0047ab;
+    padding: 10px 0;
+    width: 100vw;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    color: aliceblue;
+    font-size: 18px;
+    margin: 0 15px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+nav ul li:hover {
+    color: blue;
+    background-color: aliceblue;
+}
+
+#Reniciar {
+    font-size: 18px;
+}
+
+/* Container de quadrados */
+#conteiner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    justify-items: center;
+}
+
+/* Estilo dos quadrados de cor */
+.elemento {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    background-color: rgb(122, 42, 42);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.elemento:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Parágrafos e mensagens */
+p {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Input de nome */
+#inpName {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+}
+
+/* Frase inicial */
+#textoComeco {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 20px;
+}

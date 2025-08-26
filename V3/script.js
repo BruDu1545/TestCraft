@@ -40,7 +40,33 @@ function iniciarJogo() {
     elementos[quadradoSortiado].style.backgroundColor = codeinicial.innerText;
 }
 
+// Abrir popup
+function openPopup(title, text) {
+    document.getElementById('overlay').classList.add('active');
+    document.getElementById('popup-title').innerText = title;
+    document.getElementById('popup-text').innerText = text;
+    document.body.style.overflow = 'hidden'; 
+}
 
+// Fechar popup
+function closePopup() {
+    document.getElementById('overlay').classList.remove('active');
+    document.body.style.overflow = ''; 
+}
+
+// Fechar ao clicar no overlay
+document.getElementById('overlay').addEventListener('click', function (e) {
+    if (e.target === this) {
+        closePopup();
+    }
+});
+
+// Fechar com ESC
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        closePopup();
+    }
+});
 
 function vereficarCor(event) {
     var textoRgb = document.getElementById("rgbinicial").innerText;
@@ -48,14 +74,14 @@ function vereficarCor(event) {
 
     if (funcaoExecutada || funcao2Executada) {
         if (elemento.style.backgroundColor === textoRgb) {
-            document.getElementById("resultado").innerText = "Parabéns, você acertou!";
+            openPopup("Parabéns", "Você acertou o Rgb correto!")
         } else {
             elemento.style.backgroundColor = "#1c1c1c";
             document.getElementById("resultado").innerText = "Tente novamente.";
         }
     } else if (funcao3Executada) {
         if (elemento.style.backgroundColor === hexadecimalEmRGB(textoRgb)) {
-            document.getElementById("resultado").innerText = "Parabéns, você acertou!";
+            openPopup("Parabéns", "Você acertou o Hexadecimal correto!")
         } else {
             elemento.style.backgroundColor = "#1c1c1c";
             document.getElementById("resultado").innerText = "Tente novamente.";
@@ -74,7 +100,7 @@ function criarQuadradosFacil() {
     for (let i = 0; i < 3; i++) {
         // Cria um novo elemento div para representar um quadrado
         let quadrado = document.createElement("button");
-        quadrado.className  = "elemento"; // Define o id do quadrado
+        quadrado.className = "elemento"; // Define o id do quadrado
 
         // Adiciona um event listener de clique a cada quadrado criado
         quadrado.addEventListener("click", vereficarCor);
@@ -96,7 +122,7 @@ function criarQuadradosDificil() {
     for (let i = 0; i < 6; i++) {
         // Cria um novo elemento div para representar um quadrado
         let quadrado = document.createElement("button");
-        quadrado.className  = "elemento"; // Define o id do quadrado
+        quadrado.className = "elemento"; // Define o id do quadrado
 
         // Adiciona um event listener de clique a cada quadrado criado
         quadrado.addEventListener("click", vereficarCor);
@@ -157,7 +183,6 @@ function hexadecimalAleatorio() {
     return codeHexa;
 }
 
-
 function quadradosImpossiveis() {
     funcao3Executada = true;
     // Obtém a informaçao id="conteiner"
@@ -173,7 +198,7 @@ function quadradosImpossiveis() {
     for (let i = 0; i < 6; i++) {
         // Cria um novo elemento div para representar um quadrado
         let quadrado = document.createElement("button");
-        quadrado.className  = "elemento"; // Define o id do quadrado
+        quadrado.className = "elemento"; // Define o id do quadrado
 
         // Adiciona um event listener de clique a cada quadrado criado
         quadrado.addEventListener("click", vereficarCor);
@@ -184,16 +209,16 @@ function quadradosImpossiveis() {
     }
 }
 
-function hexadecimalEmRGB(hex){
+function hexadecimalEmRGB(hex) {
 
-     hex = hex.replace('#', '');;
+    hex = hex.replace('#', '');;
 
-     r = parseInt(hex.substring(0, 2), 16);
-     g = parseInt(hex.substring(2, 4), 16);
-     b = parseInt(hex.substring(4, 6), 16);
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
 
-     hexRgb = "rgb(" + r + ", " + g + ", " + b + ")";
-     // Envia os numero r + g + b em uma variavel
-     return hexRgb;
+    hexRgb = "rgb(" + r + ", " + g + ", " + b + ")";
+    // Envia os numero r + g + b em uma variavel
+    return hexRgb;
 
 }

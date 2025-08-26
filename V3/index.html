@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
-    <title>Jogo das Cores</title>
-    <style></style>
-  </head>
-  <body>
-    <header>
-      <h1 id="objetivo" >Seu objetivo e acertar a cor de acordo com o (RGB)</h1>
-      <h1 id="name"></h1>
-      <h2 id="rgbinicial"></h2>
-      <nav>
-        <ul>
-          <li onclick="iniciarJogo()">Iniciar/Trocar cor</li>
-          <li onclick="reniciar()" id="Reniciar">Reniciar</li>
-          <li id="resultado"></li>
-          <li onclick="criarQuadradosFacil()" id="Facil">Facil</li>
-          <li onclick="criarQuadradosDificil()" id="Dificil">Dificil</li>
-          <li onclick="quadradosImpossiveis()" id="modoImpossivel">Impossivel</li>
-        </ul>
-      </nav>
-    </header>
-    <h1 id="textoComeco">Digite seu nome e selecione o modo de Jogo na barra superior</h1>
-    <input type="text" id="inpName">
-    <div id="conteiner">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+  <title>Jogo das Cores</title>
+  <style></style>
+</head>
+
+<body>
+  <header>
+    <h1 id="objetivo">Seu objetivo e acertar a cor de acordo com o (RGB)</h1>
+    <h1 id="name"></h1>
+    <h2 id="rgbinicial"></h2>
+    <nav>
+      <ul>
+        <li onclick="iniciarJogo()">Iniciar/Trocar cor</li>
+        <li onclick="reniciar()" id="Reniciar">Reniciar</li>
+        <li id="resultado"></li>
+        <li onclick="criarQuadradosFacil()" id="Facil">Facil</li>
+        <li onclick="criarQuadradosDificil()" id="Dificil">Dificil</li>
+        <li onclick="quadradosImpossiveis()" id="modoImpossivel">Impossivel</li>
+      </ul>
+    </nav>
+  </header>
+  <h1 id="textoComeco">Digite seu nome e selecione o modo de Jogo na barra superior</h1>
+  <input type="text" id="inpName">
+  <div id="conteiner">
+  </div>
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <button class="popup-close" onclick="closePopup()">×</button>
+      <h2 class="popup-title">Parabéns</h2>
+      <div class="popup-content">
+        <p class="popup-text">Você teve sucesso na sua missão, considere um vitorioso!</p>
+      </div>
+      <div class="popup-actions">
+        <button class="popup-btn popup-btn-secondary" onclick="closePopup()">Cancelar</button>
+        <button class="popup-btn popup-btn-primary" onclick="confirmAction()">Confirmar</button>
+      </div>
     </div>
-    <!-- Conteiner -->
-  </body>
+  </div>
+  <!-- Conteiner -->
+</body>
+
 </html>
 <script>
   const inpName = document.querySelector('input#inpName')
